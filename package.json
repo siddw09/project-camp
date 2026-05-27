@@ -1,0 +1,20 @@
+{
+  "name": "projectmanagmentsystem",
+  "version": "1.0.0",
+  "description": "api based full backend project",
+  "keywords": [
+    "backend",
+    "API",
+    "creation"
+  ],
+  "license": "ISC",
+  "author": "avgsid",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "devDependencies": {
+    "prettier": "3.8.3"
+  }
+}
