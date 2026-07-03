@@ -1,0 +1,19 @@
+{
+  "name": "project_management",
+  "version": "1.0.0",
+  "description": "basic pms",
+  "keywords": [
+    "API",
+    "creation"
+  ],
+  "license": "ISC",
+  "author": "siddhesh",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "devDependencies": {
+    "prettier": "3.9.4"
+  }
+}
