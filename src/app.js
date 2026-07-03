@@ -15,6 +15,12 @@ app.use(
     })
 )
 
+
+import healthcheckRoute from "./routes/healthCheck.route.js"
+
+app.use("/api/v1/healthCheck", healthcheckRoute)
+
+
 app.get('/', (req, res) => {
   res.send('Launching first backend as a project!')
 })
