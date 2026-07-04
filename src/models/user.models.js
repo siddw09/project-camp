@@ -1,6 +1,9 @@
 import mongoose, {Schema} from "mongoose";
 import bcrypt from "bcryptjs";
 
+import jwt from "jsonwebtoken"
+import crypto from "crypto"
+
 const userSchema = new Schema(
     {
     
@@ -63,6 +66,7 @@ const userSchema = new Schema(
     },
 )
 
+// encrypted the password using BCRYPT lib  -- this is basically a hook (pre HOOK)
 userSchema.pre("save", async function (next) {
     if(!this.isModified("password")) return next()
 
@@ -70,8 +74,49 @@ userSchema.pre("save", async function (next) {
     next()
 })
 
+// it is the method which checks if the password enterd is correct or not
 userSchema.methods.isPasswordCorrect = async function (password) {
     return await bcrypt.compare(password, this.password)
 }
+
+
+// methods for tokens - JWT (with data)
+// method for access token generation
+
+userSchema.methods.generateAccessToken = function (){
+    return jwt.sign(
+        {
+            _id: this._id,
+            email: this.email,
+            username: this.username
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        {expiresIn: process.env.ACCESS_TOKEN_EXPIRY}
+    )
+}
+
+// method for access token generation
+userSchema.methods.generateRefreshToken = function(){
+    return jwt.sign(
+        {
+            _id: this.id
+        },
+        process.env.REFRESH_TOKEN_SECRET,
+        {expiresIn: process.env.REFRESH_TOKEN_EXPIRY}
+    )
+}
+
+// methods for tokens (without data)
+userSchema.methods.generateTempToken = function(){
+    const unHashedToken = crypto.randomBytes(20).toString("hex")
+    const hashedToken = crypto
+        .createHash("sha256")
+        .update(unHashedToken)
+        .digest("hex")
+    
+    const tokenExpiry = Date.now() + (20*60*1000) // added 20 min expiry
+    return {unHashedToken,hashedToken,tokenExpiry}
+}
+
 
 export const User = mongoose.model('User',userSchema)
