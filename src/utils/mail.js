@@ -85,4 +85,4 @@ export {
     emailVerificationMailgenContent,
     passwordResetMailgenContent,
     sendEmail
-}
+}     
