@@ -25,7 +25,23 @@ app.get('/', (req, res) => {
   res.send('Launching first backend as a project!')
 })
 app.get('/github', (req, res) => {
-  res.send('This is the gold mine for me in the coming future and for getting wherever i want to!')
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>My GitHub Gold Mine</title>
+        <style>
+            body { font-family: sans-serif; background: #1a1a1a; color: #fff; text-align: center; padding: 50px; }
+            h1 { color: #00ffcc; }
+        </style>
+    </head>
+    <body>
+        <h1>This is the gold mine for me!</h1>
+        <p>Building the future, one commit at a time.</p>
+    </body>
+    </html>
+    `)
 })
 
 export default app
