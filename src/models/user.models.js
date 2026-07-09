@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken"
 import crypto from "crypto"
 
+// this is how db is designed in Nosql;
 const userSchema = new Schema(
     {
     
@@ -53,7 +54,7 @@ const userSchema = new Schema(
             type:String
         },
         forgotPasswordExpiry:{
-            type:Data
+            type:Date
         },
         emailVerificationToken:{
             type:String
@@ -66,12 +67,12 @@ const userSchema = new Schema(
     },
 )
 
-// encrypted the password using BCRYPT lib  -- this is basically a hook (pre HOOK)
-userSchema.pre("save", async function (next) {
-    if(!this.isModified("password")) return next()
+// encrypted the password using BCRYPT lib  -- this is basically a hook (pre HOOK )
+userSchema.pre("save", async function () {
+    if(!this.isModified("password")) return 
 
     this.password = await bcrypt.hash(this.password, 10)
-    next()
+    
 })
 
 // it is the method which checks if the password enterd is correct or not
@@ -118,5 +119,5 @@ userSchema.methods.generateTempToken = function(){
     return {unHashedToken,hashedToken,tokenExpiry}
 }
 
-
-export const User = mongoose.model('User',userSchema)
+const User = mongoose.model('User',userSchema)
+export default User

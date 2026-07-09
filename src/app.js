@@ -21,6 +21,10 @@ import healthcheckRoute from "./routes/healthCheck.route.js"
 app.use("/api/v1/healthCheck", healthcheckRoute)
 
 
+//heath check function for authentication;
+import authRouter from "./routes/auth.route.js"
+app.use("/api/v1/auth", authRouter)
+
 app.get('/', (req, res) => {
   res.send(`
     <!DOCTYPE html>
