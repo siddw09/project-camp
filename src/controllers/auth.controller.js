@@ -6,7 +6,7 @@ import {emailVerificationMailgenContent, sendEmail} from "../utils/mail.js"
 
 const generateAccessAndRefreshTokens = async (userId) =>{
     try {
-       const user = await user.findById(userId) 
+       const user = await User.findById(userId) 
        const accessToken  = user.generateAccessToken()
        const refreshToken = user.generateRefreshToken()
 
@@ -14,7 +14,8 @@ const generateAccessAndRefreshTokens = async (userId) =>{
        await user.save({ValidateBeforeSave : false})
        return {accessToken, refreshToken}
     } catch (error) {
-        throw new ApiError (500,"Something went wrong while generating access token!")
+        console.error("Actual error : ",error)
+        throw new ApiError (500,"Something went wrong while generating access token!", error)
     }
 }
 
@@ -70,4 +71,52 @@ const registerUser = asyncHandler(async (req,res) =>{
         )
 })
 
-export {registerUser}
+// this is part is login where registerd user will come to login and this method will tell how he can login . like using what he can login into the app.
+const login = asyncHandler(async (req,res) =>{
+    // taking data from the forntend.
+    const {email,password,username} = req.body
+
+    if(!email){   // can be written like this also : if(!username && !email) or if(!username ||  !email)
+        throw new ApiError(400,"Username or email is required!")
+    } 
+
+    const user = await User.findOne({email})
+    if(!user){
+        throw new ApiError(400,"User does not exists !")
+    }
+
+    const isPasswordValid = await user.isPasswordCorrect(password)
+    if(!isPasswordValid){
+        throw new ApiError(400,"Invalid creadentials!")
+    }
+
+    const {accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id)
+
+
+// we have to send cookies to the user or sending tokens to user using cookies
+
+    const logedInUser = await User.findById(user._id).select("-password -refreshToken -emailVerificationToken -emailVerificationExpiry ")
+
+    const options ={
+        httpOnly : true,
+        secure : true
+    }
+
+    return res
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
+        .json(
+            new ApiResponce(
+                200,
+                {
+                    user: logedInUser,
+                    accessToken,
+                    refreshToken
+                },
+                "User Logged in successfully!"
+            )
+        )
+
+})
+export {registerUser,login}
