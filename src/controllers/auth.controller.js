@@ -179,8 +179,8 @@ const verifyEmail = asyncHandler (async (req, res) =>{
         .digest("hex")
 
         await User.findOne({
-            emailVerificationToken:hashedToken,
-            emailVerificationExpiry:{$gt: Date.now()}
+            emailVerificationToken : hashedToken,
+            emailVerificationExpiry :{$gt: Date.now()}
         })
 
         if(!user){
@@ -401,6 +401,7 @@ export {
     registerUser,
     loginUser,
     logoutUser,
+    getCurrentUser,
     verifyEmail,
     resendEmailVerification,
     refreshAccessToken,
