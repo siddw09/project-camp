@@ -18,6 +18,6 @@ const projectMember = new Schema({
         enum: availableUserRole,
         default : UserRolesEnum.MEMBER
      }
-}, {timestamps : true})
+}, {timestamps : true}) 
 
 export const ProjectMember = mongoose.model("ProjectMember",projectMember)
