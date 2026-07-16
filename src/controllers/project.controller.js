@@ -6,17 +6,90 @@ import {ApiError} from "../utils/api-error.js"
 import {asyncHandler} from "../utils/asyncHandler.js"
 import { create } from "domain";
 import mongoose from "mongoose";
-import { UserRolesEnum } from "../utils/constants.js";
+import {UserRolesEnum} from "../utils/constants.js";
 
 
 const getProjects = asyncHandler(async (req,res,next)=>{
-    //test
+    const projects = await ProjectMember.aggregate([
+        {
+            $match:{
+                user: new mongoose.Types.ObjectId(req.user._id)
+            }
+        },
+        {
+            $lookup: {
+                from:"projects",
+                localField:"projects",
+                foreignField:"_id",
+                as:"Projects",
+                pipeline:[
+                    {
+                        $lookup:{
+                            from:"projectmembers",
+                            localField:"_id",
+                            foreignField:"Projects",
+                            as:"projectmembers"
+                        }
+                    },
+                    {
+                        $addFields:{
+                            members:{
+                                $size:"$projectmembers"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            $unwind: "$projects"
+        },
+        {
+            // the data which will be exported
+            $project:{
+                project:{
+                    _id:1,
+                    name:1,
+                    description:1,
+                    members:1,
+                    createdAt:1,
+                    createdBy:1,
 
+                },
+                role:1,
+                _id:0
+            }
+        }
+    ])
+
+    return res 
+        .status(200)
+        .json(
+            new ApiResponce(
+                200,
+                projects,
+                "Projects fetched successfully "
+        )
+    )
 })
 
 const getProjectById = asyncHandler(async (req,res,next)=>{
-    //test
-    
+    const {projectId} = req.body
+    const project= await Project.findById(projectId)
+    if(!project){
+        throw new ApiError(404,"Project not found ")
+    }
+
+    return res 
+            .status(200)
+            .json(
+                new ApiResponce(
+                    200,
+                    project,
+                    "Project fetched successfully ! "
+                )
+            )
+        
 })
 
 
@@ -101,7 +174,9 @@ const deleteProject = asyncHandler(async (req,res,next)=>{
 })
 
 const addMemberToProject = asyncHandler(async (req,res,next)=>{
-    //test
+    // we'll first need the (email, role) & (projectId)
+    const {email,role} = req.body
+    const {projectId} = req.parama   
     
 })
 
