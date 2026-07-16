@@ -1,4 +1,4 @@
-import User from "../models/user.models.js";
+import {User} from "../models/user.models.js";
 import {Project} from "../models/project.models.js";
 import {ProjectMember} from "../models/projectMember.models.js";
 import {ApiResponce} from "../utils/api-response.js"

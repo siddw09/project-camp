@@ -19,7 +19,7 @@ const userSchema = new Schema(
             }
             
         },
-
+ 
         username:{
             type:String,
             required: true,
@@ -120,4 +120,5 @@ userSchema.methods.generateTempToken = function(){
 }
 
 const User = mongoose.model("User",userSchema)
-export default User
+
+export {User}
