@@ -74,7 +74,7 @@ const getProjects = asyncHandler(async (req,res,next)=>{
 })
 
 const getProjectById = asyncHandler(async (req,res,next)=>{
-    const {projectId} = req.body
+    const {projectId} = req.params
     const project= await Project.findById(projectId)
     if(!project){
         throw new ApiError(404,"Project not found ")
@@ -100,13 +100,13 @@ const createProject = asyncHandler(async (req,res,next)=>{
         name,
         description,
         // createdBy: res.user._id  // <-- this must be mongodb object id.
-        createdBy:new mongoose.Types.ObjectId(res.user._id)
+        createdBy:new mongoose.Types.ObjectId(req.user._id)
     })
 
 // the user who is creating the project must be upgraded as a ADMIN.
 
     await ProjectMember.create({
-          user:new mongoose.Types.ObjectId(res.user._id),
+          user:new mongoose.Types.ObjectId(req.user._id),
           project: new mongoose.Types.ObjectId(project._id),
           role: UserRolesEnum.ADMIN
     })
@@ -132,7 +132,7 @@ const updateProject = asyncHandler(async (req,res,next)=>{
         {
             name,
             description,
-        },
+        }, 
         { new:true}
     )
     
@@ -153,10 +153,10 @@ const updateProject = asyncHandler(async (req,res,next)=>{
 })
 
 const deleteProject = asyncHandler(async (req,res,next)=>{
-    const {name, description}
+  
     const {projectId} = req.params
     
-    const project = await Project.findOneAndDelete(projectId)
+    const project = await Project.findByIdAndDelete(projectId)
 
     if(!project){
         throw new ApiError(404,"Project not found!")
@@ -176,7 +176,7 @@ const deleteProject = asyncHandler(async (req,res,next)=>{
 const addMemberToProject = asyncHandler(async (req,res,next)=>{
     // we'll first need the (email, role) & (projectId)
     const {email,role} = req.body
-    const {projectId} = req.parama   
+    const {projectId} = req.params  
     const user = await User.findOne({email})
 
     if(!user){
@@ -189,8 +189,6 @@ const addMemberToProject = asyncHandler(async (req,res,next)=>{
             project: new mongoose.Types.ObjectId(projectId)
         },
         {
-            user: new mongoose.Types.ObjectId(user._id),
-            project: new mongoose.Types.ObjectId(projectId),
             role: role
         },
         {
@@ -289,7 +287,7 @@ const updateMemberRole = asyncHandler(async (req,res,next)=>{
         throw new ApiError(404,"project member not found ! ")
     }
 
-    projectMember = await projectMember.findByIdAndUpdate(
+    projectMember = await ProjectMember.findByIdAndUpdate(
         projectMember._id,
         {
             role: newRole
@@ -325,7 +323,7 @@ const deleteMemberFromProject = asyncHandler(async (req,res,next)=>{
         throw new ApiError(404,"project member not found ! ")
     }
 
-    projectMember = await projectMember.findByIdAndDelete(
+    projectMember = await ProjectMember.findByIdAndDelete(
         projectMember._id
     )
 
@@ -345,7 +343,7 @@ const deleteMemberFromProject = asyncHandler(async (req,res,next)=>{
 })
 
 
-export{
+export {
     getProjects,
     getProjectById,
     createProject,
