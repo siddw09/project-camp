@@ -1,10 +1,10 @@
-# 🚀 Project Camp Backend
+#  Project Camp Backend
 
 Project Camp Backend is a robust, RESTful API service designed to power collaborative project management systems. It provides full-featured project workspaces, task tracking with subtasks, secure document attachments, project notes, and an advanced, granular three-tier Role-Based Access Control (RBAC) security matrix.
 
 ---
 
-## 🧭 Table of Contents
+##  Table of Contents
 - [Core Features](#-core-features)
 - [System Architecture & Permissions](#-system-architecture--permissions)
 - [API Endpoints Reference](#-api-endpoints-reference)
@@ -18,7 +18,7 @@ Project Camp Backend is a robust, RESTful API service designed to power collabor
 
 ---
 
-## ✨ Core Features
+##  Core Features
 
 * **🔒 Secure Authentication:** JWT tokens with an access/refresh token rotation cycle, dynamic email verification, and recovery workflows.
 * **📂 Workspace Management:** Create separate, insulated collaborative project environments.
