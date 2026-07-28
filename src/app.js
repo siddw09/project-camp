@@ -12,7 +12,7 @@ app.use(express.static("public"))
 app.use(cookieParser())
 
 //cors
-app.use(
+app.use( 
     cors({
         origin: process.env.CORS_ORIGIN ?.split(",") || "http://localhost:5137",
         credentials: true,
@@ -26,7 +26,7 @@ import healthcheckRoute from "./routes/healthCheck.route.js"
 app.use("/api/v1/healthCheck", healthcheckRoute)
 
 
-//heath check function for authentication;
+//route for the authentication and autherization;
 import authRouter from "./routes/auth.route.js"
 app.use("/api/v1/auth", authRouter) 
 
@@ -36,7 +36,14 @@ import projectRouter from "./routes/project.routes.js"
 app.use("api/vi/projects", projectRouter)
 
 
+//route for the tasks
+import taskRouter from "./routes/task.routes.js"
+app.use("api/vi/tasks")
 
+
+//route for the tasks
+// import taskRouter from "./routes/task.routes.js"
+// app.use("api/vi/tasks")
 
 
 app.get('/', (req, res) => {

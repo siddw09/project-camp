@@ -1,13 +1,26 @@
 import { Router } from "express";
-import {changeCurrentPassword, forgotPasswordRequest, getCurrentUser, loginUser, logoutUser, refreshAccessToken, registerUser, resendEmailVerification, resetForgotPassword, verifyEmail} from "../controllers/auth.controller.js"
+import {changeCurrentPassword, 
+        forgotPasswordRequest, 
+        getCurrentUser, 
+        loginUser, 
+        logoutUser, 
+        refreshAccessToken, 
+        registerUser, 
+        resendEmailVerification, 
+        resetForgotPassword, 
+        verifyEmail} from "../controllers/auth.controller.js"
 
 //validation part (import these 2 ones)
 import { validate } from "../middlewares/validator.middleware.js";
-import { userChangeCurrentPasswordValidator, userForgotPasswordValidator, userLoginValidator, userRegisterValidator, userResetForgotPasswordValidator } from "../validators/index.js";
+import { userChangeCurrentPasswordValidator, 
+        userForgotPasswordValidator, 
+        userLoginValidator, 
+        userRegisterValidator, 
+        userResetForgotPasswordValidator } from "../validators/index.js";
 
 import {verifyJWT} from "../middlewares/auth.middleware.js"
 
-
+ 
 const router = Router()
 
 

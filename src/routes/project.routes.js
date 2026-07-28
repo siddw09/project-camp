@@ -1,19 +1,19 @@
 import { Router } from "express";
 import { getProjects,
-    getProjectById,
-    createProject,
-    updateProject,
-    deleteProject,
-    addMemberToProject,
-    getProjectMembers,
-    updateMemberRole,
-    deleteMemberFromProject } from "../controllers/project.controller.js"
+        getProjectById,
+        createProject,
+        updateProject,
+        deleteProject,
+        addMemberToProject,
+        getProjectMembers,
+        updateMemberRole,
+        deleteMemberFromProject } from "../controllers/project.controller.js"
 
 //validation part (import these 2 ones)
 import { validate } from "../middlewares/validator.middleware.js";
 import { 
-    createProjectValidator,
-    addMemberToProjectValidator } from "../validators/index.js";
+        createProjectValidator,
+        addMemberToProjectValidator } from "../validators/index.js";
 
 import {verifyJWT,validateProjectPermission} from "../middlewares/auth.middleware.js"
 import { UserRolesEnum } from "../utils/constants.js";
