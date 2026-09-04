@@ -123,12 +123,3 @@ All base requests must point to the root path: `/api/v1`
 * **Metadata Extraction:** Database tracks schema records tracking file allocations precisely (`size`, `mime-type`, target `location`).
 
 ---
-
-
-
-### Prerequisites
-* Node.js (v16.x or newer)
-* Database (MongoDB / PostgreSQL cluster instance)
-
-### Installation
-1. Clone this repository:
