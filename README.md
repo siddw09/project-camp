@@ -113,13 +113,4 @@ All base requests must point to the root path: `/api/v1`
 
 ## 🛠️ Security & File Management
 
-### Data Integrity Rules
-* **Input Sanitization:** All incoming endpoints pass through explicit structural schemas to guarantee input hygiene.
-* **Credential Handling:** Zero plaintext values. All passwords use heavy salt rounds.
 
-### Object File Tracking
-* **Engine Wrapper:** Handled via secure stream file structures (`Multer` storage engine).
-* **Static Assets System:** Assets parse safely and deploy straight into bounded storage paths inside the destination endpoint `/public/images/`.
-* **Metadata Extraction:** Database tracks schema records tracking file allocations precisely (`size`, `mime-type`, target `location`).
-
----
