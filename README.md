@@ -8,6 +8,28 @@
 > Production-ready RESTful API powering collaborative project workspaces, task tracking, and synchronous documentation with fine-grained access control.
 
 ---
+## Why Project Camp?
+
+Modern collaborative projects often fall apart due to tool fragmentation: communication lives in chat threads, actionable work is scattered across ad-hoc checklists, and high-level documentation is completely disconnected from day-to-day tickets. 
+
+**Project Camp** centralizes the entire execution lifecycle—structure, task execution, and team documentation—within unified, insulated workspaces protected by an enterprise-grade permissions matrix.
+
+---
+
+### How It Powers Project Operations
+
+#### 1. For System & Project Admins
+* **Zero Permission Leakage:** The rigid 3-tier Role-Based Access Control (RBAC) matrix guarantees members only access and modify their assigned scope, preventing accidental state overrides or member additions.
+* **Workspace Governance:** Complete oversight over member invites, role elevations (`member` ↔ `project_admin`), project metadata, and core workspace lifecycles from a single dashboard.
+* **Structured Work Breakdown:** Admins can define strategic milestone cards (`todo`, `in_progress`, `done`) and break them down into actionable checkpoint trees (subtasks) before delegating to contributors.
+* **Centralized Knowledge Retention:** System-level project workboards allow leads to compile technical guidelines, specs, and permanent meeting notes directly adjacent to tracking tickets.
+
+#### 2. For Team Members & Contributors
+* **Noise-Free Execution:** Instead of sifting through extraneous admin configurations, members get an uncluttered task feed filtered down to actionable deliverables and checklist items.
+* **Frictionless Progress Tracking:** Update task workflow stages and check off granular subtask checkpoints in real-time without administrative bottlenecks.
+* **Context at Hand:** File metadata attachments and shared workspace notes keep PRDs, asset links, and documentation embedded directly in the execution context, eliminating context switching.
+
+---
 
 ### Key Capabilities
 
